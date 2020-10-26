@@ -20,7 +20,9 @@
   "homepage": "https://github.com/Olanetsoft/MERNG#readme",
   "dependencies": {
     "apollo-server": "^2.18.2",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.10"
   },
   "devDependencies": {
