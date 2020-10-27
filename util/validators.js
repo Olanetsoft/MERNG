@@ -27,7 +27,7 @@ module.exports.validateRegisterInput = (
         errors,
         valid: Object.keys(errors).length < 1
     }
-}
+};
 
 module.exports.validateLoginInput = (username, password) => {
     const errors = {};
@@ -42,4 +42,4 @@ module.exports.validateLoginInput = (username, password) => {
         errors,
         valid: Object.keys(errors).length < 1
     }
-}
+};
