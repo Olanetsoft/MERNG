@@ -35,6 +35,7 @@ module.exports = {
                 username: user.username,
                 createdAt: new Date().toISOString()
             });
+            // Returns result
            return await newPost.save();
         }
     }
