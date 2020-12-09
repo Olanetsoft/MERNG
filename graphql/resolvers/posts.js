@@ -60,6 +60,8 @@ module.exports = {
         async likePost(_, { postId }, context) {
             const { username } = checkAuth(context);
             const post = await Post.findById(postId);
+
+            // If post exist
             if (post) {
                 if (post.likes.find(like => like.username === username)) {
                     // Post already liked, unlike it
