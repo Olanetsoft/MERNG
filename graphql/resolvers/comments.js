@@ -44,7 +44,7 @@ module.exports = {
             // Fnd post by ID
             const post = await Post.findById(postId);
 
-           // If post Exist
+            // If post Exist
             if (post) {
                 const commentIndex = post.comments.findIndex(c => c.id === commentId);
 
@@ -55,6 +55,8 @@ module.exports = {
                 } else {
                     throw new AuthenticationError('Action not allowed')
                 }
+            } else {
+                throw new UserInputError('Post not Found')
             }
 
         }
