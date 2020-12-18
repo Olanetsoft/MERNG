@@ -11,7 +11,7 @@ function Home() {
     //console.log(posts)
     return (
 
-        <Grid columns={3} style={{ marginButtom: 20 }}>
+        <Grid columns={3}>
             <Grid.Row>
                 <h1>Recent Posts</h1>
             </Grid.Row>
@@ -19,8 +19,8 @@ function Home() {
                 {loading ? (
                     <h1>Posts Loading...</h1>
                 ) : (
-                        posts && posts.map(post => (
-                            <Grid.Column key={post.id}>
+                        posts && posts.map((post) => (
+                            <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
                                 <PostCard post={post} />
                             </Grid.Column>
                         ))
