@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Container, Form, Button } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/react-hooks'
 
 import gql from 'graphql-tag'
 
+
+//import hooks
+import { useForm } from '../utils/hooks'
 
 
 function Register(props) {
@@ -11,23 +14,17 @@ function Register(props) {
     // set Errors
     const [errors, setErrors] = useState({});
 
-    // set initial state
-    const [values, setValues] = useState({
+    const { onChange, onSubmit, values } = useForm(registerUser, {
         username: '',
         email: '',
         password: '',
         confirmPassword: ''
     })
 
-    // onchange
-    const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
-    }
-
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(_, result) {
-            
+
             console.log(result)
 
             //After its successful redirect to homepage
@@ -43,14 +40,10 @@ function Register(props) {
         variables: values
     })
 
-
-
-    // onSubmit
-    const onSubmit = (e) => {
-        e.preventDefault();
+    //simple call addUser function
+    function registerUser() {
         addUser()
     }
-
 
     return (
         <div className='form-container'>
