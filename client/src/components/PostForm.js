@@ -45,24 +45,36 @@ export default function PostForm() {
     }
 
     return (
-        <div>
-            <Form onSubmit={onSubmit}>
-                <h2>Create a Post:</h2>
-                <Form.Field>
-                    <Form.Input
-                        placeholder="Hi Tweep!"
-                        name="body"
-                        type="text"
-                        value={values.body}
-                        // error={errors.username ? true : false}
-                        onChange={onChange}
-                    />
+        <>
+            <div>
+                <Form onSubmit={onSubmit}>
+                    <h2>Create a Post:</h2>
+                    <Form.Field>
+                        <Form.Input
+                            placeholder="Hi Tweep!"
+                            name="body"
+                            type="text"
+                            value={values.body}
+                            error={error ? true : false}
+                            onChange={onChange}
+                        />
 
-                    <Button type="Submit" color="blue">Create Post</Button>
+                        <Button type="Submit" color="blue">Create Post</Button>
 
-                </Form.Field>
-            </Form>
-        </div>
+                    </Form.Field>
+                </Form>
+                {error && (
+                    <div className="ui error message" style={{marginBottom: 20}}>
+                        <ul className="list">
+                            <li>
+                                {error.graphQLErrors[0].message}
+                            </li>
+                        </ul>
+                    </div>
+                )}
+            </div>
+
+        </>
     )
 }
 
