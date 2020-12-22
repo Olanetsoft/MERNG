@@ -9,6 +9,7 @@ import { useForm } from '../utils/hooks'
 import { FETCH_POSTS_QUERY } from '../utils/graphql'
 
 
+
 export default function PostForm() {
     const { onChange, onSubmit, values } = useForm(createPostCallback, {
         body: ''
