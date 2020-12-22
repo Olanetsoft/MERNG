@@ -20,19 +20,23 @@ export default function PostForm() {
         variables: values,
 
         update(proxy, result) {
+
             // read query in cache
             const data = proxy.readQuery({
                 query: FETCH_POSTS_QUERY
             });
-            data.getPosts = [result.data.createPost, ...data.getPosts]
+            data.getPosts = [result.data.createPost, ...data.getPosts];
 
             //persist the query to cache
             proxy.writeQuery({
                 query: FETCH_POSTS_QUERY, data
             });
 
-            console.log(result)
-            values.body = ''
+            //To refresh: temporary fix
+            window.location.reload(false);
+
+            //console.log(result)
+            values.body = '';
         }
     })
 
