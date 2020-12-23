@@ -1,5 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Card, Form, Button, Grid, Image, Icon, Label } from "semantic-ui-react";
+import {
+  Card,
+  Form,
+  Button,
+  Grid,
+  Image,
+  Icon,
+  Label,
+} from "semantic-ui-react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 
@@ -8,6 +16,8 @@ import moment from "moment";
 
 import { AuthContext } from "../context/auth";
 import LikeButton from "../components/LikeButton";
+import DeleteButton from "../components/DeleteButton";
+
 
 //import hooks
 import { useForm } from "../utils/hooks";
@@ -20,7 +30,7 @@ function SinglePost(props) {
 
   //Get data
   const {
-    data: { getPost },
+    data: { getPost: getPost },
   } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
@@ -35,7 +45,6 @@ function SinglePost(props) {
       body,
       createdAt,
       username,
-      comment,
       likes,
       likeCount,
       commentCount,
@@ -76,14 +85,7 @@ function SinglePost(props) {
                   </Label>
                 </Button>
                 {user && user.username === username && (
-                  <Button
-                    as="div"
-                    color="red"
-                    floated="right"
-                    onClick={() => console.log("Delete Post")}
-                  >
-                    <Icon name="trash" style={{ margin: 0 }} />
-                  </Button>
+                  <DeleteButton postId={id} />
                 )}
               </Card.Content>
             </Card>
@@ -92,6 +94,7 @@ function SinglePost(props) {
       </Grid>
     );
   }
+  return postMarkup;
 }
 
 const FETCH_POST_QUERY = gql`

@@ -24,7 +24,7 @@ function PostCard({
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/post/${id}`}>
-          {moment(createdAt).fromNow(true)}
+          {moment(createdAt).fromNow()}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
