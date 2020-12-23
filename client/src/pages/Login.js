@@ -1,102 +1,98 @@
-import React, { useContext, useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
-import { useMutation } from '@apollo/react-hooks'
+import React, { useContext, useState } from "react";
+import { Form, Button } from "semantic-ui-react";
+import { useMutation } from "@apollo/react-hooks";
 
-import gql from 'graphql-tag'
+import gql from "graphql-tag";
 
-import { AuthContext } from '../context/auth'
+import { AuthContext } from "../context/auth";
 //import hooks
-import { useForm } from '../utils/hooks'
+import { useForm } from "../utils/hooks";
 
 function Login(props) {
+  //Initialize the context with useContext from react
+  const context = useContext(AuthContext);
 
-    //Initialize the context with useContext from react
-    const context = useContext(AuthContext);
+  // set Errors
+  const [errors, setErrors] = useState({});
 
-    // set Errors
-    const [errors, setErrors] = useState({});
+  const { onChange, onSubmit, values } = useForm(loginUserCallback, {
+    username: "",
+    password: "",
+  });
 
-    const { onChange, onSubmit, values } = useForm(loginUserCallback, {
-        username: '',
-        password: ''
-    })
+  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    update(_, { data: { login: userData } }) {
+      context.login(userData);
+      //After its successful redirect to homepage
+      props.history.push("/");
+    },
 
-    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-        update(_, { data: { login: userData } }) {
+    // catch errors
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    },
 
-            context.login(userData)
-            //After its successful redirect to homepage
-            props.history.push('/')
-        },
+    //Send back variables
+    variables: values,
+  });
 
-        // catch errors
-        onError(err) {
-            setErrors(err.graphQLErrors[0].extensions.exception.errors)
-        },
+  //simple call addUser function
+  function loginUserCallback() {
+    loginUser();
+  }
 
-        //Send back variables
-        variables: values
-    })
+  return (
+    <div className="form-container">
+      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
+        <h1>Login</h1>
+        <Form.Input
+          label="Username"
+          placeholder="Username"
+          name="username"
+          type="text"
+          value={values.username}
+          error={errors.username ? true : false}
+          onChange={onChange}
+        />
 
-    //simple call addUser function
-    function loginUserCallback() {
-        loginUser()
-    }
+        <Form.Input
+          label="Password"
+          placeholder="Password"
+          name="password"
+          type="password"
+          value={values.password}
+          error={errors.password ? true : false}
+          onChange={onChange}
+        />
 
-
-    return (
-        <div className='form-container'>
-            <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
-                <h1>Login</h1>
-                <Form.Input
-                    label="Username"
-                    placeholder="Username"
-                    name="username"
-                    type="text"
-                    value={values.username}
-                    error={errors.username ? true : false}
-                    onChange={onChange} />
-
-                <Form.Input
-                    label="Password"
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    value={values.password}
-                    error={errors.password ? true : false}
-                    onChange={onChange} />
-
-                <Button type="Submit" primary>
-                    Login
-                </Button>
-            </Form>
-            {Object.keys(errors).length > 0 && (
-                <div className="ui error message">
-                    <ul className="list">
-                        {Object.values(errors).map((value) => (
-                            <li key={value}>{value}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+        <Button type="Submit" primary>
+          Login
+        </Button>
+      </Form>
+      {Object.keys(errors).length > 0 && (
+        <div className="ui error message">
+          <ul className="list">
+            {Object.values(errors).map((value) => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
         </div>
-    )
+      )}
+    </div>
+  );
 }
-
 
 // Graphql mutation
 const LOGIN_USER = gql`
-    mutation login(
-        $username: String!
-        $password: String!
-    ){
-        login(
-                username: $username
-                password: $password
-        ){
-            id email username createdAt token
-        }
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      id
+      email
+      username
+      createdAt
+      token
     }
-`
+  }
+`;
 
 export default Login;
