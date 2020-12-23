@@ -17,7 +17,6 @@ function MenuBar() {
 
   const menuBar = user ? (
     <Menu pointing secondary size="massive" color="blue">
-      <p>Hi 🙌</p>
       <Menu.Item name={user.username} active as={Link} to="/" />
 
       <Menu.Menu position="right">
