@@ -43,7 +43,7 @@ function LikeButton({ user, post: { id, likes, likeCount } }) {
       <Popup
         content={liked ? "Unlike Post" : "Like Post"}
         inverted
-        trigger={ likeButton }
+        trigger={likeButton}
       />
       <Label basic color="blue" pointing="left">
         {likeCount}
