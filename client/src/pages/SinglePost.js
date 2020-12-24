@@ -7,6 +7,7 @@ import {
   Image,
   Icon,
   Label,
+  Loader
 } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
@@ -55,7 +56,7 @@ function SinglePost(props) {
 
   let postMarkup;
   if (!getPost) {
-    postMarkup = <p>Loading Post ....</p>;
+    postMarkup =<Loader>Loading</Loader>;
   } else {
     const {
       id,
