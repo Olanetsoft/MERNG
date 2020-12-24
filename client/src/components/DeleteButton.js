@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
 import { Button, Icon, Confirm } from "semantic-ui-react";
-import { set } from "mongoose";
 
 function DeleteButton({ postId }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
