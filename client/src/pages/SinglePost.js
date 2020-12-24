@@ -10,8 +10,6 @@ import { AuthContext } from "../context/auth";
 import LikeButton from "../components/LikeButton";
 import DeleteButton from "../components/DeleteButton";
 
-
-
 function SinglePost(props) {
   const postId = props.match.params.postId;
 
@@ -25,9 +23,9 @@ function SinglePost(props) {
     },
   });
 
-function deletePostCallback(){
-    props.history.push('/')
-}
+  function deletePostCallback() {
+    props.history.push("/");
+  }
 
   let postMarkup;
   if (!getPost) {
@@ -37,6 +35,7 @@ function deletePostCallback(){
       id,
       body,
       createdAt,
+      comments,
       username,
       likes,
       likeCount,
@@ -82,6 +81,17 @@ function deletePostCallback(){
                 )}
               </Card.Content>
             </Card>
+            {comments.map((comment) => (
+              <Card fluid key={comment.id}>
+                <Card.Content>
+                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Meta as={Link} to={`/post/${id}`}>
+                    {moment(comment.createdAt).fromNow(true)}
+                  </Card.Meta>
+                  <Card.Description>{comment.body}</Card.Description>
+                </Card.Content>
+              </Card>
+            ))}
           </Grid.Column>
         </Grid.Row>
       </Grid>
