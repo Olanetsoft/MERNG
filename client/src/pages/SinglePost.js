@@ -1,14 +1,6 @@
-import React, { useContext, useState } from "react";
-import {
-  Card,
-  Form,
-  Button,
-  Grid,
-  Image,
-  Icon,
-  Label,
-} from "semantic-ui-react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import React, { useContext } from "react";
+import { Card, Button, Grid, Image, Icon, Label } from "semantic-ui-react";
+import { useQuery } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 
 import gql from "graphql-tag";
@@ -19,9 +11,6 @@ import LikeButton from "../components/LikeButton";
 import DeleteButton from "../components/DeleteButton";
 
 
-//import hooks
-import { useForm } from "../utils/hooks";
-
 function SinglePost(props) {
   const postId = props.match.params.postId;
 
@@ -30,7 +19,7 @@ function SinglePost(props) {
 
   //Get data
   const {
-    data: { getPost: getPost },
+    data: { getPost } = {},
   } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
