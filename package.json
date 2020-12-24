@@ -1,0 +1,33 @@
+{
+  "name": "merng",
+  "version": "1.0.0",
+  "description": "A full fledged application built with MERNG (MongoDB, ExpressJs, React, Node and Graphql) technology.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Olanetsoft/MERNG.git"
+  },
+  "author": "Idris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Olanetsoft/MERNG/issues"
+  },
+  "homepage": "https://github.com/Olanetsoft/MERNG#readme",
+  "dependencies": {
+    "apollo-server": "^2.18.2",
+    "bcryptjs": "^2.4.3",
+    "create-react-app": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
