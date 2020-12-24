@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/react-hooks";
 
 import { Button, Icon, Confirm } from "semantic-ui-react";
 
-function DeleteButton({ postId }) {
+function DeleteButton({ postId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
@@ -13,8 +13,11 @@ function DeleteButton({ postId }) {
 
       // TODO remove post from catch
 
-      //To refresh: temporary fix
-      window.location.reload(false);
+      if (callback) {
+        callback();
+        //To refresh: temporary fix
+        window.location.reload(false);
+      }
     },
     variables: {
       postId,
